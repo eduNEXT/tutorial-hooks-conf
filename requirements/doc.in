@@ -8,3 +8,4 @@ doc8                      # reStructuredText style checker
 twine                     # Validates README.rst for usage on PyPI
 build                     # Needed to build the wheel for twine README check
 Sphinx                    # Documentation builder
+edx_sphinx_theme          # edX theme for Sphinx output

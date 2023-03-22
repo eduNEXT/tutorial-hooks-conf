@@ -11,3 +11,12 @@ class TutorialHooksConfConfig(AppConfig):
     """
 
     name = 'tutorial_hooks_conf'
+    verbose_name = 'tutorial_hooks_conf'
+    plugin_app = {
+        'settings_config': {
+            'lms.djangoapp': {
+                'common': {'relative_path': 'settings.common'},
+                'production': {'relative_path': 'settings.production'},
+            },
+        },
+    }

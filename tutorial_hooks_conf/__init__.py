@@ -1,5 +1,5 @@
 """
-Code for the Using openedx hooks for custom code talk at the 2023 openedx conf
+Code for using openedx hooks for custom code talk at the 2023 openedx conf.
 """
 
 __version__ = '0.1.0'

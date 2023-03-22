@@ -105,14 +105,13 @@ setup(
     version=VERSION,
     description="""Code for the Using openedx hooks for custom code talk at the 2023 openedx conf""",
     long_description=README + '\n\n' + CHANGELOG,
-    author='edX',
-    author_email='oscm@edx.org',
+    author='eduNEXT',
+    author_email='felipe.montoya@edunext.co',
     url='https://github.com/openedx/tutorial-hooks-conf',
     packages=find_packages(
         include=['tutorial_hooks_conf', 'tutorial_hooks_conf.*'],
         exclude=["*tests"],
     ),
-
     include_package_data=True,
     install_requires=load_requirements('requirements/base.in'),
     python_requires=">=3.8",
@@ -129,4 +128,9 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
     ],
+    entry_points={
+        "lms.djangoapp": [
+            "tutorial_hooks_conf = tutorial_hooks_conf.apps:TutorialHooksConfConfig"
+        ],
+    }
 )
