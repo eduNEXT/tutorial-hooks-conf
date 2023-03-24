@@ -13,6 +13,7 @@ asgiref==3.6.0
 attrs==22.2.0
     # via
     #   -r requirements/test.txt
+    #   openedx-events
     #   pytest
 babel==2.12.1
     # via sphinx
@@ -47,6 +48,7 @@ django==3.2.18
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
+    #   openedx-events
     #   openedx-filters
 django-crum==0.7.9
     # via -r requirements/test.txt
@@ -58,14 +60,20 @@ docutils==0.19
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-opaque-keys==2.3.0
-    # via -r requirements/test.txt
+edx-opaque-keys[django]==2.3.0
+    # via
+    #   -r requirements/test.txt
+    #   openedx-events
 edx-sphinx-theme==3.1.0
     # via -r requirements/doc.in
 exceptiongroup==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
+fastavro==1.7.3
+    # via
+    #   -r requirements/test.txt
+    #   openedx-events
 idna==3.4
     # via
     #   -r requirements/test.txt
@@ -103,6 +111,8 @@ mdurl==0.1.2
     # via markdown-it-py
 more-itertools==9.1.0
     # via jaraco-classes
+openedx-events==7.0.0
+    # via -r requirements/test.txt
 openedx-filters==1.2.0
     # via -r requirements/test.txt
 packaging==23.0

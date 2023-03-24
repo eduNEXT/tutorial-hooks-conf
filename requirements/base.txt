@@ -6,6 +6,8 @@
 #
 asgiref==3.6.0
     # via django
+attrs==22.2.0
+    # via openedx-events
 certifi==2022.12.7
     # via requests
 charset-normalizer==3.1.0
@@ -15,13 +17,20 @@ django==3.2.18
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
+    #   openedx-events
     #   openedx-filters
 django-crum==0.7.9
     # via -r requirements/base.in
-edx-opaque-keys==2.3.0
-    # via -r requirements/base.in
+edx-opaque-keys[django]==2.3.0
+    # via
+    #   -r requirements/base.in
+    #   openedx-events
+fastavro==1.7.3
+    # via openedx-events
 idna==3.4
     # via requests
+openedx-events==7.0.0
+    # via -r requirements/base.in
 openedx-filters==1.2.0
     # via -r requirements/base.in
 pbr==5.11.1

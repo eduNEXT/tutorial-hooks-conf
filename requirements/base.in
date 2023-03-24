@@ -3,6 +3,7 @@
 
 Django             # Web application framework
 edx-opaque-keys    # Openedx course keys
+openedx-events
 openedx-filters
 requests
 django-crum        # current request

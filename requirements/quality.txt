@@ -15,6 +15,7 @@ astroid==2.15.0
 attrs==22.2.0
     # via
     #   -r requirements/test.txt
+    #   openedx-events
     #   pytest
 certifi==2022.12.7
     # via
@@ -47,17 +48,24 @@ django==3.2.18
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
+    #   openedx-events
     #   openedx-filters
 django-crum==0.7.9
     # via -r requirements/test.txt
 edx-lint==5.3.4
     # via -r requirements/quality.in
-edx-opaque-keys==2.3.0
-    # via -r requirements/test.txt
+edx-opaque-keys[django]==2.3.0
+    # via
+    #   -r requirements/test.txt
+    #   openedx-events
 exceptiongroup==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
+fastavro==1.7.3
+    # via
+    #   -r requirements/test.txt
+    #   openedx-events
 idna==3.4
     # via
     #   -r requirements/test.txt
@@ -82,6 +90,8 @@ markupsafe==2.1.2
     #   jinja2
 mccabe==0.7.0
     # via pylint
+openedx-events==7.0.0
+    # via -r requirements/test.txt
 openedx-filters==1.2.0
     # via -r requirements/test.txt
 packaging==23.0
