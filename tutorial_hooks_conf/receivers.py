@@ -3,6 +3,8 @@ Openedx receivers for events in the tutorial_hooks_conf.
 """
 import logging
 
+import requests
+
 log = logging.getLogger()
 
 
@@ -10,4 +12,17 @@ def send_enrollment_data_to_webhook(enrollment, **kwargs):  # pylint: disable=un
     """
     Listen for the enrollment event data and pass it to google sheets.
     """
-    log.info("The receiver for COURSE_ENROLLMENT_CREATED is working")
+    envelope = kwargs.get("metadata")
+
+    requests.post(
+        "https://hooks.zapier.com/hooks/catch/105048/33sbbyf/",
+        {
+            "user_id": enrollment.user.id,
+            "username": enrollment.user.pii.name,
+            "user_email": enrollment.user.pii.email,
+            "event_type": envelope.event_type,
+            "timestamp": str(envelope.time),
+            "container": envelope.sourcehost,
+        },
+        timeout=0.1,
+    )

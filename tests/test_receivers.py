@@ -3,6 +3,7 @@
 Tests for the `tutorial-hooks-conf` receivers module.
 """
 import datetime
+from unittest.mock import patch
 
 from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
@@ -41,12 +42,24 @@ class EnrollmentReceiverTest(TestCase):
             creation_date=datetime.datetime(2023, 3, 28, 15, 55, 00),
         )
 
-    def test_receiver_called(self):
+    @patch("tutorial_hooks_conf.receivers.requests")
+    def test_receiver_called(self, expected_request):
         """
         Test that receiver is called with the correct information.
         """
+        expected_payload_subset = {
+            "user_id": self.enrollment.user.id,
+            "username": self.enrollment.user.pii.name,
+            "user_email": self.enrollment.user.pii.email,
+        }
+
         COURSE_ENROLLMENT_CREATED.connect(send_enrollment_data_to_webhook)
 
         COURSE_ENROLLMENT_CREATED.send_event(
             enrollment=self.enrollment,
+        )
+
+        self.assertDictContainsSubset(
+            expected_payload_subset,
+            expected_request.post.call_args.args[1],
         )
