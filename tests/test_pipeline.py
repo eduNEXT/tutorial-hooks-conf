@@ -3,9 +3,46 @@
 Tests for the `tutorial-hooks-conf` filters module.
 """
 
+from unittest.mock import Mock, patch
 
-def test_placeholder():
+from django.test import TestCase, override_settings
+from openedx_filters.learning.filters import CourseAboutRenderStarted
+
+
+@override_settings(
+    OPEN_EDX_FILTERS_CONFIG={
+        "org.openedx.learning.course_about.render.started.v1": {
+            "fail_silently": False,
+            "pipeline": [
+                "tutorial_hooks_conf.pipeline.OnlyVisibleForEmailDomains"
+            ]
+        }
+    }
+)
+class OnlyVisibleForEmailDomainsTestCase(TestCase):
     """
-    Placeholder to allow pytest to succeed before real tests are in place.
-    (If there are no tests, it will exit with code 5.)
+    You can test your own code independently of the edx-platform repo
     """
+
+    def test_redirect_denied(self):
+        """
+        Email domains not in the list will get a redirection
+        """
+        mock_course = Mock()
+        mock_course.org = "Demo"
+        with self.assertRaises(CourseAboutRenderStarted.RedirectToPage):
+            CourseAboutRenderStarted.run_filter(
+                context={"course": mock_course},
+                template_name="some_template.html"
+            )
+
+    def test_let_allowed_pass(self):
+        """
+        Email domains in the list get the page rendered as usual.
+        """
+        mock_course = Mock()
+        mock_course.org = "Demo"
+        CourseAboutRenderStarted.run_filter(
+                context={"course": mock_course},
+                template_name="some_template.html"
+            )
