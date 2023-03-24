@@ -9,3 +9,10 @@ def plugin_settings(settings):
     More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
     settings.OPEN_EDX_FILTERS_CONFIG = getattr(settings, "OPEN_EDX_FILTERS_CONFIG", {})
+
+    settings.OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.course_about.render.started.v1"] = {
+        "fail_silently": False,
+        "pipeline": [
+            "tutorial_hooks_conf.pipeline.OnlyVisibleForEmailDomains"
+        ]
+    }

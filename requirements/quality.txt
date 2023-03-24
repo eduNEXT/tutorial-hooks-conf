@@ -46,6 +46,7 @@ django==3.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
+    #   openedx-filters
 edx-lint==5.3.4
     # via -r requirements/quality.in
 edx-opaque-keys==2.3.0
@@ -78,6 +79,8 @@ markupsafe==2.1.2
     #   jinja2
 mccabe==0.7.0
     # via pylint
+openedx-filters==1.2.0
+    # via -r requirements/test.txt
 packaging==23.0
     # via
     #   -r requirements/test.txt

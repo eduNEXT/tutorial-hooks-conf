@@ -14,10 +14,13 @@ django==3.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
+    #   openedx-filters
 edx-opaque-keys==2.3.0
     # via -r requirements/base.in
 idna==3.4
     # via requests
+openedx-filters==1.2.0
+    # via -r requirements/base.in
 pbr==5.11.1
     # via stevedore
 pymongo==3.13.0

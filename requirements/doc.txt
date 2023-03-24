@@ -46,6 +46,7 @@ django==3.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
+    #   openedx-filters
 doc8==1.1.1
     # via -r requirements/doc.in
 docutils==0.19
@@ -99,6 +100,8 @@ mdurl==0.1.2
     # via markdown-it-py
 more-itertools==9.1.0
     # via jaraco-classes
+openedx-filters==1.2.0
+    # via -r requirements/test.txt
 packaging==23.0
     # via
     #   -r requirements/test.txt
