@@ -6,7 +6,7 @@ Tests for the `tutorial-hooks-conf` filters module.
 from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
-from openedx_filters.learning.filters import CourseAboutRenderStarted
+from openedx_filters.learning.filters import CourseAboutRenderStarted, CourseEnrollmentStarted
 
 
 @override_settings(
@@ -51,4 +51,35 @@ class OnlyVisibleForEmailDomainsTestCase(TestCase):
             CourseAboutRenderStarted.run_filter(
                     context={"course": mock_course},
                     template_name="some_template.html"
+                )
+
+
+@override_settings(
+    OPEN_EDX_FILTERS_CONFIG={
+        "org.openedx.learning.course.enrollment.started.v1": {
+            "fail_silently": False,
+            "pipeline": [
+                "tutorial_hooks_conf.pipeline.EnrollmentByEmailDomains"
+            ]
+        }
+    }
+)
+class EnrollmentByEmailDomainsTestCase(TestCase):
+    """
+    The enrollment at the backend must also be filtered
+    """
+
+    def test_redirect_denied(self):
+        """
+        Email domains not in the list will fail the enrollent
+        """
+        mock_user = Mock()
+        mock_user.email = "denied@not-allowed.com"
+        mock_key = Mock()
+        mock_key.org = "Demo"
+        with self.assertRaises(CourseEnrollmentStarted.PreventEnrollment):
+            CourseEnrollmentStarted.run_filter(
+                    user=mock_user,
+                    course_key=mock_key,
+                    mode="audit",
                 )

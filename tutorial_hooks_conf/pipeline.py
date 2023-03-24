@@ -6,7 +6,7 @@ import logging
 
 import crum
 from openedx_filters import PipelineStep
-from openedx_filters.learning.filters import CourseAboutRenderStarted
+from openedx_filters.learning.filters import CourseAboutRenderStarted, CourseEnrollmentStarted
 
 log = logging.getLogger()
 
@@ -45,3 +45,28 @@ class OnlyVisibleForEmailDomains(PipelineStep):
             pass
 
         raise CourseAboutRenderStarted.RedirectToPage(message="Not allowed", redirect_to="/courses/")
+
+
+class EnrollmentByEmailDomains(PipelineStep):
+    """
+    Filter to make the actual enrollment pass or fail.
+    """
+
+    def run_filter(self, user, course_key, mode):
+        """
+        Compare the user domain to a list of allowed domains.
+
+        The filter only continues if everything matches.
+        """
+        if course_key.org not in SPECIAL_ORGS:
+            return {}
+
+        try:
+            domain = user.email.split('@')[1]
+            if domain in ALLOWED_DOMAINS:
+                return {}
+
+        except AttributeError:
+            pass
+
+        raise CourseEnrollmentStarted.PreventEnrollment()

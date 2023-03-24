@@ -16,3 +16,10 @@ def plugin_settings(settings):
             "tutorial_hooks_conf.pipeline.OnlyVisibleForEmailDomains"
         ]
     }
+
+    settings.OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.course.enrollment.started.v1"] = {
+        "fail_silently": False,
+        "pipeline": [
+            "tutorial_hooks_conf.pipeline.EnrollmentByEmailDomains"
+        ]
+    }
