@@ -27,7 +27,10 @@ coverage[toml]==7.2.2
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
+    #   django-crum
     #   openedx-filters
+django-crum==0.7.9
+    # via -r requirements/base.txt
 edx-opaque-keys==2.3.0
     # via -r requirements/base.txt
 exceptiongroup==1.1.1

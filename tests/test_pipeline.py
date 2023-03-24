@@ -28,21 +28,27 @@ class OnlyVisibleForEmailDomainsTestCase(TestCase):
         """
         Email domains not in the list will get a redirection
         """
+        mock_req = Mock()
+        mock_req.user.email = "denied@not-allowed.com"
         mock_course = Mock()
         mock_course.org = "Demo"
-        with self.assertRaises(CourseAboutRenderStarted.RedirectToPage):
-            CourseAboutRenderStarted.run_filter(
-                context={"course": mock_course},
-                template_name="some_template.html"
-            )
+        with patch('tutorial_hooks_conf.pipeline.crum.get_current_request', return_value=mock_req):
+            with self.assertRaises(CourseAboutRenderStarted.RedirectToPage):
+                CourseAboutRenderStarted.run_filter(
+                    context={"course": mock_course},
+                    template_name="some_template.html"
+                )
 
     def test_let_allowed_pass(self):
         """
         Email domains in the list get the page rendered as usual.
         """
+        mock_req = Mock()
+        mock_req.user.email = "welcome@allowed.com"
         mock_course = Mock()
         mock_course.org = "Demo"
-        CourseAboutRenderStarted.run_filter(
-                context={"course": mock_course},
-                template_name="some_template.html"
-            )
+        with patch('tutorial_hooks_conf.pipeline.crum.get_current_request', return_value=mock_req):
+            CourseAboutRenderStarted.run_filter(
+                    context={"course": mock_course},
+                    template_name="some_template.html"
+                )
